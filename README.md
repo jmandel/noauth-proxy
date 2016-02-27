@@ -10,7 +10,7 @@
     docker run --name oauth-tester-debug \
        -v $PWD/app:/app \
        -v /dev/shm:/dev/shm \
-       -e APP_PORT=8888  \
+       -e APP_PORT=8000  \
        -e BASE_URL=myserver \
        --rm -it \
        oauth-tester-debug
