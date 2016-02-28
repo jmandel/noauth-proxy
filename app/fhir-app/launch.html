@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Launch SMART app</title>
+    <script src="fhir-client.js"></script>
+    <script src="../ehrs.js"></script>
+    <script>
+      var target = decodeURIComponent(window.location.search.split(/=/).slice(-1));
+      FHIR.oauth2.authorize(ehrs[target].oauth);
+    </script>
+  </head>
+  Launching...
+</html>
