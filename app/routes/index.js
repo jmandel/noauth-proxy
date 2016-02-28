@@ -1,13 +1,30 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 router.get('/', function(req, res, next) {
   res.json({'done': true});
 });
 
-router.get('/open/intersys/*', function(req, res, next){
-  AuthService.getTokenIntersys().then(function(token){
-    res.json({'path': req.path,'token': token, 'q': req.query});
+router.get('/open/:issuer/*', function(req, res, next){
+  AuthService
+  .getTokenFor(req.params.issuer)
+  .then(function(token){
+    console.log("authservice gave'd a token", token)
+
+    var options = {
+      method: req.method,
+      headers: Object.assign({}, req.headers, {
+        host: undefined,
+        accept: req.headers.accept.match(/^text\/html/) ? 'application/json+fhir' : req.headers.accept,
+        authorization: 'Bearer ' + token.access_token}),
+        url: req.params.issuer + '/' + req.params[0],
+    };
+
+    console.log("Getting the thing", options)
+    var pipe = request(options)
+    pipe.pipe(res)
+
   })
 })
 
@@ -18,17 +35,34 @@ router.get('/smart-sandbox/*', function(req, res, next){
 })
 
 var webdriverio = require('webdriverio');
-var options = {
+
+var webdriverOptions = {
   desiredCapabilities: {
     browserName: 'chrome'
   }
 };
 
-var AuthService = {
-  getTokenIntersys: function(){
-    var ret;
 
-    var client = webdriverio.remote(options);
+function now(){
+  return new Date().getTime();
+}
+
+function isValid(entry){
+  if (!entry) return false;
+  return (entry.timestamp + entry.response.expires_in * 1000) > now();
+}
+
+var _db = {}
+
+var AuthService = {
+  getTokenFor: function(issuer){
+
+    if (isValid(_db[issuer])){
+      return Promise.resolve(_db[issuer].response);
+    }
+
+    var ret,
+    client = webdriverio.remote(webdriverOptions);
 
     return client
     .init()
@@ -47,7 +81,7 @@ var AuthService = {
       }).then(function(r){
         return !!r.value
       })
-    })
+    }, 5000)
     .execute(function(){
       return window.smart.tokenResponse
     })
@@ -58,22 +92,11 @@ var AuthService = {
     })
     .end()
     .then(function(){
-      return ret;
-    });
-  },
-  getToken: function(where){
-    var ret = "No value";
-    return webdriverio.remote(options)
-    .init()
-    .url(where)
-    .title().then(function(res) {
-      console.log('Title was: ' + res.value);
-      ret = res.value;
-    }).catch(function(e){
-      console.log('caight', e);
-    })
-    .end()
-    .then(function(){
+      _db[issuer] = {
+        timestamp: now(),
+        response: ret
+      }
+      console.log("browsere'd a token", ret)
       return ret;
     });
   }
