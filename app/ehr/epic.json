@@ -1,0 +1,17 @@
+{
+  "server": "https://open-ic.epic.com/Argonaut/api/FHIR/Argonaut",
+  "nicknames": ["epic"],
+  "steps": [
+    {"click": "#txtUsername"},
+    {"keys": "ARGONAUT"},
+    {"click": "#txtPassword"},
+    {"keys": "ARGONAUT"},
+    {"click": "#cmdLogin"}
+  ],
+  "oauth": {
+    "client": {
+      "client_id": "7B80DBB3FD0447008D64C5EEDEDCDC8E",
+      "scope":  "user/*.read"
+    }
+  }
+}

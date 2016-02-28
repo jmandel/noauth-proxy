@@ -1,0 +1,18 @@
+{
+  "server": "https://argonaut.intersystems.com/fhiroauth2",
+  "nicknames": ["intersys", "intersystems"],
+  "steps": [
+    {"click": "#Username"},
+    {"keys": "ARGONAUT"},
+    {"click": "#Password"},
+    {"keys": "TESTING"},
+    {"click": "#btnLogin"},
+    {"click": "#btnAccept"}
+  ],
+  "oauth": {
+    "client": {
+      "client_id": "mJQwLdjgrhKISG0d9DXKORILNzOpNGU1jJek9GWKskI",
+      "scope":  "user/*.read"
+    }
+  }
+}

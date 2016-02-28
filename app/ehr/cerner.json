@@ -1,0 +1,17 @@
+{
+  "server": "https://fhir.sandboxcernerpowerchart.com/dstu2/d075cf8b-3261-481d-97e5-ba6c48d3b41f",
+  "nicknames": ["cerner"],
+  "steps": [
+    {"click": "#j_username"},
+    {"keys": "ARGONAUT"},
+    {"click": "#j_password"},
+    {"keys": "sprinttest"},
+    {"click": "#loginButton"}
+  ],
+  "oauth": {
+    "client":{
+      "client_id": "9996227b-3388-4ac9-b0f6-0e40166a7cd2",
+      "scope":  "user/*.read patient/*.read user/Patient.read"
+    }
+  }
+}

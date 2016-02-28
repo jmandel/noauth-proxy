@@ -1,0 +1,16 @@
+{
+  "server": "https://fhir-api-dstu2.smarthealthit.org",
+  "nicknames": ["smart", "smarthealthit"],
+  "steps": [
+    {"click": "#j_username"},
+    {"keys": "testuser"},
+    {"click": "#j_password"},
+    {"keys": "test"},
+    {"click": "input.btn"}
+  ],
+  "oauth": {
+    "client": {
+      "client_id": "my_web_app",
+      "scope": "user/*.read openid profile"}
+  }
+}

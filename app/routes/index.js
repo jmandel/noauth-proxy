@@ -1,14 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+console.log("load ehrs");
+var ehrs = require('../ehr');
+console.log("loaded", ehrs);
 
 router.get('/', function(req, res, next) {
   res.json({'done': true});
 });
 
-router.get('/open/:issuer/*', function(req, res, next){
+var ehrJs = "window.ehrs = " + JSON.stringify(ehrs, null, 2) + ";";
+router.get('/ehrs.js', function(req, res, next) {
+  res.setHeader('content-type', 'text/javascript');
+  res.send(ehrJs);
+});
+
+router.get('/open/:server/*', function(req, res, next){
+  var server = ehrs[req.params.server].server;
   AuthService
-  .getTokenFor(req.params.issuer)
+  .getTokenFor(server)
   .then(function(token){
     console.log("authservice gave'd a token", token)
 
@@ -18,7 +28,7 @@ router.get('/open/:issuer/*', function(req, res, next){
         host: undefined,
         accept: req.headers.accept.match(/^text\/html/) ? 'application/json+fhir' : req.headers.accept,
         authorization: 'Bearer ' + token.access_token}),
-        url: req.params.issuer + '/' + req.params[0],
+        url: server + '/' + req.params[0],
     };
 
     console.log("Getting the thing", options)
@@ -42,7 +52,6 @@ var webdriverOptions = {
   }
 };
 
-
 function now(){
   return new Date().getTime();
 }
@@ -52,29 +61,36 @@ function isValid(entry){
   return (entry.timestamp + entry.response.expires_in * 1000) > now();
 }
 
+function approve(client, ehr){
+  return function(){
+    return ehr.steps.reduce(function(client, step){
+      if (step.click){
+        return client.waitForExist(step.click, 5000).click(step.click);
+      }
+      if (step.keys){
+        return client.keys(step.keys);
+      }
+    },client);
+  }
+}
+
 var _db = {}
 
 var AuthService = {
-  getTokenFor: function(issuer){
+  getTokenFor: function(server){
 
-    if (isValid(_db[issuer])){
-      return Promise.resolve(_db[issuer].response);
+    if (isValid(_db[server])){
+      return Promise.resolve(_db[server].response);
     }
 
-    var ret,
-    client = webdriverio.remote(webdriverOptions);
+    var ehr = ehrs[server],
+        ret,
+        client = webdriverio.remote(webdriverOptions);
 
-    return client
+    return  client
     .init()
-    .url('http://localhost:8000/fhir-app/launch.html#intersys')
-    .waitForExist("#Username", 30000)
-    .click("#Username")
-    .keys("ARGONAUT")
-    .click("#Password")
-    .keys("TESTING")
-    .click("#btnLogin")
-    .waitForExist("#btnAccept")
-    .click("#btnAccept")
+    .url('http://localhost:8000/fhir-app/launch.html?iss=' + encodeURIComponent(server))
+    .then(approve(client, ehr))
     .waitUntil(function(){
       return client.execute(function(){
         return window['smart'] && window['smart']['tokenResponse'];
@@ -92,7 +108,7 @@ var AuthService = {
     })
     .end()
     .then(function(){
-      _db[issuer] = {
+      _db[server] = {
         timestamp: now(),
         response: ret
       }

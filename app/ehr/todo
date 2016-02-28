@@ -1,0 +1,49 @@
+{
+  allscripts: {
+    "server": "https://cloud.allscriptsunity.com/fhir",
+      "client":{
+      "client_id": "CBEDDA05-9664-45BB-BC5B-8786CDB0846E",
+      "scope": "user/*.read"
+      }
+  },
+
+  smart: {
+    "server": "https://fhir-api-dstu2.smarthealthit.org",
+      "client": {
+      "client_id": "my_web_app",
+      "scope": "user/*.read openid profile"}
+  },
+  intersys: {
+    "server": "https://argonaut.intersystems.com/fhiroauth2",
+      "client": {
+      "client_id": "mJQwLdjgrhKISG0d9DXKORILNzOpNGU1jJek9GWKskI",
+      "scope":  "user/*.read"
+    }
+  },
+  epic: {
+    "server": "https://open-ic.epic.com/Argonaut/api/FHIR/Argonaut",
+      "client": {
+      "client_id": "7B80DBB3FD0447008D64C5EEDEDCDC8E",
+      "scope":  "user/*.read"
+    }
+  },
+  i2b2: {
+    "server": "https://52.21.38.135/srv-dstu2-0.2/api",
+      "client": {
+      "client_id": "fcclient1",
+      "scope":  "user/*.read"
+    }
+  },
+  meditech: {
+    "server": "http://direct.meditech.com/FHIR/api2",
+      "client": {
+      "client_id": "5519c77f2c47df600a812a91",
+      "client_secret": "meditech",
+      "scope":  "user/*.read"
+    }
+  },
+  cerner: {
+    "server": "https://fhir.sandboxcernerpowerchart.com/dstu2/d075cf8b-3261-481d-97e5-ba6c48d3b41f",
+      "client": 
+  }
+}
