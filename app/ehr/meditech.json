@@ -1,0 +1,15 @@
+{
+  "server": "http://direct.meditech.com/FHIR/api2",
+  "nicknames": ["meditech"],
+  "basic": "mtuser:meditech@",
+  "steps": [
+    {"click": "#allow"}
+  ],
+  "oauth": {
+    "client": {
+      "client_id": "5519c77f2c47df600a812a91",
+      "client_secret": "meditech",
+      "scope":  "user/*.read"
+    }
+  }
+}

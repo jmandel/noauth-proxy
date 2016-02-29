@@ -1,0 +1,19 @@
+{
+  "server": "https://cloud.allscriptsunity.com/fhir",
+  "nicknames": ["allscripts"],
+  "steps": [
+    {"click": "#username"},
+    {"keys": "fhiruser"},
+    {"click": "#password"},
+    {"keys": "Argonaut"},
+    {"click": "#password"},
+    {"click": "button.btn.btn-primary"},
+    {"click": "div.consent-buttons button.btn-primary"}
+  ],
+  "oauth": {
+    "client": {
+      "client_id": "CBEDDA05-9664-45BB-BC5B-8786CDB0846E",
+      "scope":  "user/*.read"
+    }
+  }
+}

@@ -6,6 +6,9 @@ module.exports = require("fs").readdirSync(ehrPath).reduce(function(coll, file){
   var ejson = require(epath);
   console.log(file, "eh", ejson, ejson.oauth, ejson.server);
   ejson.oauth.server = ejson.server;
+  if (ejson.basic) {
+    ejson.oauth.client.basic = ejson.basic;
+  }
   var keys = [ejson.server].concat(ejson.nicknames || []);
   return keys.reduce(function(coll, k){
     var newk = {};

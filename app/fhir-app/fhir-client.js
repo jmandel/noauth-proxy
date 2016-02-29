@@ -363,8 +363,13 @@ BBClient.authorize = function(params, errback){
     sessionStorage[state] = JSON.stringify(params);
 
     console.log("sending client reg", params.client);
+    var provider_base = params.provider.oauth2.authorize_uri;
+    console.log("Params", params);
+    if(params.client.basic){
+      provider_base = provider_base.replace(/:\/\//, "://"+params.client.basic);
+    }
 
-    var redirect_to=params.provider.oauth2.authorize_uri + "?" + 
+    var redirect_to= provider_base+ "?" + 
       "client_id="+encodeURIComponent(client.client_id)+"&"+
       "response_type="+encodeURIComponent(params.response_type)+"&"+
       "scope="+encodeURIComponent(client.scope)+"&"+

@@ -1,0 +1,5 @@
+Launch selenium server, ndoejs server for app, and nodejs server for API (could both be one...)
+
+Best yet: make it include a post-commit hook handler,
+a static file server for the results of the commit,
+and an API server for external auth resolvers.
