@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-console.log("load ehrs");
 var ehrs = require('../ehr');
-console.log("loaded", ehrs);
 
 router.get('/', function(req, res, next) {
   res.json({'done': true});
