@@ -51,4 +51,6 @@ http://noauth.smarthealthit.org/open/smart/Patient/99912345
 
 ### Add your server
 
-You can add your serve by submitting a pull request with a `.json` file like the ones you see in https://github.com/jmandel/noauth-proxy/tree/master/app/ehr. Briefly: the "steps" array lists the manual steps that need to occur to sign into your server and approve an app's access request.
+You can add your server by submitting a pull request with a `.json` file like the ones you see in https://github.com/jmandel/noauth-proxy/tree/master/app/ehr. Briefly: 
+ * `steps` array provides the manual steps that need to occur to sign into your server and approve an app's access request
+ * `oauth` object provides the client configuration details. Your server must suppor this client with a `redirect_uri` of `http://localhost:8000/fhir-app/`
