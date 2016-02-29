@@ -1,5 +1,9 @@
 # NOAuth: Open proxy for SMART on FHIR
 
+### What is it?
+
+A testing tool that sits in front of an OAuth-protected SMART on FHIR sandbox, like the ones hosted by [Argonaut Implementation Program](https://github.com/argonautproject/implementation-program/wiki) participants. It automates the authorization process (using webdriver) and presents the facade of an open server. This is designed to faciliate testing and manual inspection, and as a building block for an OAuth testing suite.
+
 ### Try it
 
 You can use URLs like the following as a FHIR base URL:
@@ -15,6 +19,8 @@ Where `:server` is one of these Argonaut test servers:
  * `smart`
 
 #### Examples:
+
+Note: you may experience a 5s delay if nobody has talked to your target server in more than an hour (since the proxy only refreshes tokens when needed).
 
 ##### An `Observation` from Epic
 http://noauth.smarthealthit.org/open/epic/Observation/Tl4xxjAMDmAdEfs3nmEjOkjNfEKA5NpRW-zNUTlnIyfsB
@@ -42,3 +48,7 @@ http://noauth.smarthealthit.org/open/smart/Patient/99912345
     eval $(docker-machine env noauth-proxy)
     docker build -t noauth-proxy .
     ./prod.sh
+
+### Add your server
+
+You can add your serve by submitting a pull request with a `.json` file like the ones you see in https://github.com/jmandel/noauth-proxy/tree/master/app/ehr. Briefly: the "steps" array lists the manual steps that need to occur to sign into your server and approve an app's access request.
