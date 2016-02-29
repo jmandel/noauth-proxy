@@ -7,8 +7,7 @@
     {"click": "#password"},
     {"keys": "Argonaut"},
     {"click": "#password"},
-    {"click": "button.btn.btn-primary"},
-    {"click": "div.consent-buttons button.btn-primary"}
+    {"click": "button.btn.btn-primary"}
   ],
   "oauth": {
     "client": {

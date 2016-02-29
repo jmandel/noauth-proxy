@@ -7,7 +7,9 @@
     "body-parser": "^1.15.0",
     "debug": "^2.2.0",
     "express": "^4.13.4",
-    "request": "^2.69.0"
+    "jade": "^1.11.0",
+    "request": "^2.69.0",
+    "webdriverio": "^4.0.3"
   },
   "devDependencies": {
     "express-generator": "^4.13.1"

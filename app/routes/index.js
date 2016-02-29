@@ -57,7 +57,7 @@ function now(){
 }
 
 function isValid(entry){
-  if (!entry) return false;
+  if (!entry || !entry.response) return false;
   return (entry.timestamp + entry.response.expires_in * 1000) > now();
 }
 
