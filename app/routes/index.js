@@ -36,12 +36,6 @@ router.get('/open/:server/*', function(req, res, next){
   })
 })
 
-router.get('/smart-sandbox/*', function(req, res, next){
-  AuthService.getToken(req.query.where||'http://google.com').then(function(token){
-    res.json({'path': req.path,'token': token, 'q': req.query});
-  })
-})
-
 var webdriverio = require('webdriverio');
 
 var webdriverOptions = {
