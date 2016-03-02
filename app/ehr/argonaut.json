@@ -1,0 +1,19 @@
+{
+  "server": "https://argonaut.healthintersections.com.au/closed",
+  "nicknames": ["argonaut"],
+  "steps": [
+    {"click": "input[name='username']"},
+    {"keys": "jmandel"},
+    {"click": "input[name='password']"},
+    {"keys": "ho4wl59j"},
+    {"click": "input[value='Login']"},
+    {"click": "input[name='userinfo']"}
+    {"click": "input[type='submit']"}
+  ],
+  "oauth": {
+    "client":{
+      "client_id": "jmandel-public",
+      "scope":  "openid profile user/*.read"
+    }
+  }
+}
