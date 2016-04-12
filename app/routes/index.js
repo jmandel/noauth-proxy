@@ -57,7 +57,7 @@ function approve(client, ehr){
   return function(){
     return ehr.steps.reduce(function(client, step){
       if (step.click){
-        return client.waitForExist(step.click, 5000).click(step.click);
+        return client.waitForExist(step.click, 10000).click(step.click);
       }
       if (step.keys){
         return client.keys(step.keys);

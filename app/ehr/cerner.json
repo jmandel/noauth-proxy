@@ -11,7 +11,7 @@
   "oauth": {
     "client":{
       "client_id": "9996227b-3388-4ac9-b0f6-0e40166a7cd2",
-      "scope":  "user/Patient.read patient/Patient.read patient/DocumentReference.read patient/MedicationOrder.read patient/MedicationStatement.read"
+      "scope":  "online_access launch openid profile user/Patient.read patient/Patient.read patient/DocumentReference.read patient/MedicationOrder.read patient/MedicationStatement.read"
     }
   }
 }

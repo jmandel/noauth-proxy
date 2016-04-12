@@ -7,7 +7,7 @@
     {"click": "input[name='password']"},
     {"keys": "ho4wl59j"},
     {"click": "input[value='Login']"},
-    {"click": "input[name='userinfo']"}
+    {"click": "input[name='userinfo']"},
     {"click": "input[type='submit']"}
   ],
   "oauth": {

@@ -38,8 +38,10 @@ COPY conf/selenium-entry.sh /opt/bin/selenium-entry.sh
 RUN chmod +x /opt/bin/selenium-entry.sh
 COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+COPY app/package.json /tmp/package.json
+RUN cd /tmp && npm install
 COPY app /app
-RUN cd /app && npm install
+RUN cd /app && mv /tmp/node_modules .
 
 ENV APP_PORT="9090" BASE_URL="http://oauth-tester"
 
